@@ -14,12 +14,12 @@
 - `GOOGLE_CLIENT_SECRET`
 - `GITHUB_CLIENT_ID`
 - `GITHUB_CLIENT_SECRET`
-- `FRONTEND_URL` = your Vercel URL (example: `https://ai-study-assistance.vercel.app`)
-- `BACKEND_URL` = your Render URL (example: `https://ai-study-assistance-backend.onrender.com`)
+- `FRONTEND_URL` = `https://ai-study-assistance.vercel.app`
+- `BACKEND_URL` = `https://ai-study-assistance-backend.onrender.com`
 - `ADDITIONAL_CORS_ORIGINS` (optional, comma-separated)
 
 5. Confirm service is live at:
-- `https://<your-backend>.onrender.com/`
+- `https://ai-study-assistance-backend.onrender.com/`
 
 ## 2. Frontend deploy on Vercel
 
@@ -29,8 +29,8 @@
 - Build Command: `npm run build`
 - Output Directory: `build`
 3. Add environment variables:
-- `REACT_APP_API_URL` = `https://<your-backend>.onrender.com/api`
-- `REACT_APP_BASE_URL` = `https://<your-backend>.onrender.com`
+- `REACT_APP_API_URL` = `https://ai-study-assistance-backend.onrender.com/api`
+- `REACT_APP_BASE_URL` = `https://ai-study-assistance-backend.onrender.com`
 4. Deploy.
 
 `frontend/vercel.json` is already added for SPA routing support.
@@ -41,15 +41,15 @@ After both URLs are ready, update OAuth apps:
 
 ### Google OAuth
 - Authorized JavaScript origin:
-  - `https://<your-frontend>.vercel.app`
+  - `https://ai-study-assistance.vercel.app`
 - Authorized redirect URI:
-  - `https://<your-backend>.onrender.com/api/auth/google/callback`
+  - `https://ai-study-assistance-backend.onrender.com/api/auth/google/callback`
 
 ### GitHub OAuth
 - Homepage URL:
-  - `https://<your-frontend>.vercel.app`
+  - `https://ai-study-assistance.vercel.app`
 - Authorization callback URL:
-  - `https://<your-backend>.onrender.com/api/auth/github/callback`
+  - `https://ai-study-assistance-backend.onrender.com/api/auth/github/callback`
 
 ## 4. Final wiring
 

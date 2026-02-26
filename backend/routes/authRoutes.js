@@ -5,7 +5,7 @@ const { register, login } = require("../controllers/authController");
 
 const router = express.Router();
 
-const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+const frontendUrl = (process.env.FRONTEND_URL || "http://localhost:3000").replace(/\/+$/, "");
 
 router.post("/register", register);
 router.post("/login", login);

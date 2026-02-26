@@ -9,22 +9,27 @@ const app = express();
 
 app.use(express.json());
 
+const normalizeOrigin = (value) => (value || "").trim().replace(/\/+$/, "");
+
 const allowedOrigins = [
     "http://localhost:3000",
     process.env.FRONTEND_URL
-].filter(Boolean);
+]
+    .map(normalizeOrigin)
+    .filter(Boolean);
 
 if (process.env.ADDITIONAL_CORS_ORIGINS) {
     const extraOrigins = process.env.ADDITIONAL_CORS_ORIGINS
         .split(",")
-        .map((origin) => origin.trim())
+        .map(normalizeOrigin)
         .filter(Boolean);
     allowedOrigins.push(...extraOrigins);
 }
 
 app.use(cors({
     origin(origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
+        const normalizedOrigin = normalizeOrigin(origin);
+        if (!origin || allowedOrigins.includes(normalizedOrigin)) {
             return callback(null, true);
         }
         return callback(new Error("Not allowed by CORS"));

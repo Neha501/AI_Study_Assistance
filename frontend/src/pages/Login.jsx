@@ -30,7 +30,10 @@ function Login() {
             const messages = {
                 google_failed: "Google authentication failed. Please try again.",
                 github_failed: "GitHub authentication failed. Please try again.",
-                no_token: "Authentication error. No token received."
+                no_token: "Authentication error. No token received.",
+                google_server_error: "Google login backend error. Please try again in 30 seconds.",
+                github_server_error: "GitHub login backend error. Please try again in 30 seconds.",
+                server_config_error: "Server config issue detected. Contact admin or retry after backend redeploy."
             };
             setError(messages[oauthError] || "Social login failed.");
         }

@@ -13,11 +13,11 @@ router.post("/login", login);
 
 router.get(
     "/google",
-    passport.authenticate("google", { scope: ["profile", "email"] })
+    passport.authenticate("google", { scope: ["profile", "email"], session: false })
 );
 
 router.get("/google/callback", (req, res, next) => {
-    passport.authenticate("google", (err, user) => {
+    passport.authenticate("google", { session: false }, (err, user) => {
         if (err) {
             console.error("Google OAuth callback error:", err.message);
             return res.redirect(buildErrorRedirect("google_server_error"));
@@ -41,11 +41,11 @@ router.get("/google/callback", (req, res, next) => {
 
 router.get(
     "/github",
-    passport.authenticate("github", { scope: ["user:email"] })
+    passport.authenticate("github", { scope: ["user:email"], session: false })
 );
 
 router.get("/github/callback", (req, res, next) => {
-    passport.authenticate("github", (err, user) => {
+    passport.authenticate("github", { session: false }, (err, user) => {
         if (err) {
             console.error("GitHub OAuth callback error:", err.message);
             return res.redirect(buildErrorRedirect("github_server_error"));

@@ -349,7 +349,7 @@ export default function Dashboard() {
                 const headers = { Authorization: `Bearer ${token}` };
 
                 // Fetch User Profile
-                const profileRes = await fetch(`${API_BASE_URL}/users/profile`, { headers });
+                const profileRes = await fetch(`${API_BASE_URL}/user/profile`, { headers });
                 if (profileRes.ok) {
                     const profileData = await profileRes.json();
                     setUserData(profileData);

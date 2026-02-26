@@ -16,33 +16,30 @@ passport.deserializeUser(async (id, done) => {
     }
 });
 
-// ─── Google Strategy ───────────────────────────────────────────────────────────
+const backendUrl = process.env.BACKEND_URL || "http://localhost:5000";
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/api/auth/google/callback"
+    callbackURL: `${backendUrl}/api/auth/google/callback`
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        // Check if user already exists with this Google ID
         let user = await User.findOne({ googleId: profile.id });
 
         if (user) {
             return done(null, user);
         }
 
-        // Check if user exists with same email
         const email = profile.emails && profile.emails[0] ? profile.emails[0].value : null;
         if (email) {
             user = await User.findOne({ email });
             if (user) {
-                // Link Google ID to existing account
                 user.googleId = profile.id;
                 await user.save();
                 return done(null, user);
             }
         }
 
-        // Create new user
         user = await User.create({
             name: profile.displayName || "Google User",
             email: email || `google_${profile.id}@noemail.com`,
@@ -55,34 +52,29 @@ passport.use(new GoogleStrategy({
     }
 }));
 
-// ─── GitHub Strategy ───────────────────────────────────────────────────────────
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "/api/auth/github/callback",
+    callbackURL: `${backendUrl}/api/auth/github/callback`,
     scope: ["user:email"]
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        // Check if user already exists with this GitHub ID
         let user = await User.findOne({ githubId: profile.id });
 
         if (user) {
             return done(null, user);
         }
 
-        // Get primary email
         const email = profile.emails && profile.emails[0] ? profile.emails[0].value : null;
         if (email) {
             user = await User.findOne({ email });
             if (user) {
-                // Link GitHub ID to existing account
                 user.githubId = profile.id;
                 await user.save();
                 return done(null, user);
             }
         }
 
-        // Create new user
         user = await User.create({
             name: profile.displayName || profile.username || "GitHub User",
             email: email || `github_${profile.id}@noemail.com`,

@@ -74,3 +74,9 @@ The application will be available at `http://localhost:3000`.
 ## License
 
 MIT
+
+## Production Deployment
+
+Backend (Render) + frontend (Vercel) deployment steps are available in:
+
+- `DEPLOYMENT.md`

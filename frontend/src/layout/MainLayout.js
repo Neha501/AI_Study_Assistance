@@ -11,7 +11,7 @@ function MainLayout({ children }) {
         const fetchUser = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await fetch(`${API_BASE_URL}/users/profile`, {
+                const res = await fetch(`${API_BASE_URL}/user/profile`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 if (res.ok) {

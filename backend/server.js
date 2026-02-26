@@ -13,8 +13,11 @@ app.use(express.json());
 
 // ✅ Proper CORS setup (use only once)
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:5173", "https://ai-study-assistance.vercel.app"],
-    credentials: true
+  origin: [
+    "http://localhost:3000",
+    "https://ai-study-assistance.vercel.app/"
+  ],
+  credentials: true
 }));
 
 // ✅ Session (required for Passport OAuth)
